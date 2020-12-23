@@ -1,0 +1,22 @@
+mvo:
+    model_dir: './models/'
+    batch_size: 65
+    epochs: 200
+    multimodal_data_dir: '/datasets/multi_gap_5'
+eval:
+    models:
+        - cross-mio
+
+nn_opt:
+    cross-mio_params:
+        nn_name: cross-mio_turtle_v1
+        cross_att_type: sigmoid
+        imu_att_type: temporal
+        imu_length: 20
+        lr_rate: 0.00001
+        rho: 0.9
+        epsilon: 1e-08
+        decay: 0.0
+        fc_trans: 1
+        fc_rot: 0.001
+    
