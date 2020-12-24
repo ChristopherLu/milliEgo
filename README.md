@@ -4,7 +4,7 @@
 # milliEgo
 ### [Project](https://christopherlu.github.io/publications/milliego) | [Youtube](https://www.youtube.com/watch?v=I9vjoKGY2ts&feature=youtu.be) | [Paper](https://christopherlu.github.io/files/papers/[SenSys2020]milliEgo.pdf) <br>
 
-Simplified [docker](https://www.docker.com/) version for the implementation of our method of 6-DOF Egomotion Estimation via a single-chip mmWave radar ([TI AWR1843](https://www.ti.com/product/AWR1843)) and a commercial-grade IMU. Our method is the first-of-its-kind DNN based odometry approach that can estimate the egomotion from the sparse and noisy data returned by a single-chip mmWave radar. <br><br>
+Simplified [docker](https://www.docker.com/) version for the implementation of our 6-DOF Egomotion Estimation method via a single-chip mmWave radar ([TI AWR1843](https://www.ti.com/product/AWR1843)) and a commercial-grade IMU. Our method is the first-of-its-kind DNN based odometry approach that can estimate the egomotion from the sparse and noisy data returned by a single-chip mmWave radar. <br><br>
 [milliEgo: Single-chip mmWave Aided Egomotion Estimation with Deep Sensor Fusion](https://christopherlu.github.io/publications/milliego)  
 Chris Xiaoxuan Lu, Muhamad Risqi U. Saputra, Peijun Zhao, Yasin Almalioglu, Pedro P. B. de Gusmao, Changhao Chen, Ke Sun, Niki Trigoni, Andrew Markham
 In [SenSys 2020](https://www.sigmobile.org/sensys/2020/).  
@@ -26,9 +26,9 @@ docker pull tensorflow/tensorflow:1.9.0-gpu-py3
 ### Pre-trained mmWave Radar Feature Extractor and milliEgo model
 - After git clone this repository, enter the project directory,
 ```
-mkdir models
+mkdir -p models/cross-mio
 ```
-- Download the pre-trained CNN model 'cnn.h5' [https://www.dropbox.com/s/osi5w1gaaiiykhi/cnn.h5?dl=0](https://www.dropbox.com/s/osi5w1gaaiiykhi/cnn.h5?dl=0) (dropbox link) for mmWave feature extraction and put it under `./models/`
+- Download the pre-trained CNN model ['cnn.h5'](https://www.dropbox.com/s/osi5w1gaaiiykhi/cnn.h5?dl=0) (dropbox link) for mmWave feature extraction and put it under `./models/`
 - Download the trained milliEgo model '140' and the respective config file `nn_opt.json` from [here](https://www.dropbox.com/sh/g0rpk0ah6oldyp9/AACTjB6fIUfw02ol3Adj2wqga?dl=0) (dropbox link). Put both of them in `./models/cross-mio/`.
 
 ### Dataset
