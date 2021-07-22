@@ -7,7 +7,7 @@ import os
 os.environ['KERAS_BACKEND'] = 'tensorflow'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = '3'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
@@ -31,8 +31,7 @@ import math
 from utility import plot_util
 from utility.data_loader import load_data_multi_timestamp
 from utility.test_util import convert_rel_to_44matrix, iround
-from utility.networks import build_model_selective_imu, build_model_plus_imu, \
-    build_model_att_fusion, build_model_cross_att, build_model_cross_fusion
+from utility.networks import build_model_cross_att
 
 # keras
 from keras import backend as K
