@@ -31,16 +31,18 @@ if __name__ == '__main__':
     # Get and associate data based on time
     first_list = associate.read_file_list(args.first_file)
     second_list = associate.read_file_list(args.second_file)
-    first_stamps = first_list.keys()
-    first_stamps.sort()
-    second_stamps = second_list.keys()
-    second_stamps.sort()
+    first_stamps = {}
+    for k in sorted(first_list):
+        first_stamps[k] = first_list[k]
+    second_stamps = {}
+    for k in sorted(second_list):
+        second_stamps[k] = second_list[k]
 
-    matches = associate.associate(first_list, second_list, float(args.offset), float(args.max_difference))
+    matches = associate.associate(first_stamps, second_stamps, float(args.offset), float(args.max_difference))
 
-    first_xyz = numpy.matrix([[float(value) for value in first_list[a][0:3]] for a, b in matches]).transpose()
+    first_xyz = numpy.matrix([[float(value) for value in first_stamps[a][0:3]] for a, b in matches]).transpose()
     second_xyz = numpy.matrix(
-        [[float(value) * float(args.scale) for value in second_list[b][0:3]] for a, b in matches]).transpose()
+        [[float(value) * float(args.scale) for value in second_stamps[b][0:3]] for a, b in matches]).transpose()
 
     # Compute Error
     alignment_error = second_xyz[:][0:2] - first_xyz[:][0:2]
