@@ -14,18 +14,19 @@ from eulerangles import mat2euler, euler2mat
 import yaml
 from os.path import join, dirname
 
-SCALER = 1.0 # scale label: 1, 100, 10000
+SCALER = 1.0  # scale label: 1, 100, 10000
 RADIUS_2_DEGREE = 180.0 / math.pi
+
 
 def rotated_to_local(T_w_c):
     # Input is 7 DoF absolute poses (3 trans, 4 quat), output is 6 DoF relative poses
     poses_local = []
-    T_w_c = numpy.insert(T_w_c, 0, 1, axis=1) # add dummy timestamp
+    T_w_c = numpy.insert(T_w_c, 0, 1, axis=1)  # add dummy timestamp
     # print(T_w_c)
     for i in range(1, len(T_w_c)):
         # print(T_w_c[i])
         # print(T_w_c[i][0,1:4])
-        T_w_c_im1 = transform44(T_w_c[i-1])
+        T_w_c_im1 = transform44(T_w_c[i - 1])
         T_w_c_i = transform44(T_w_c[i])
 
         T_c_im1_c_i = numpy.dot(numpy.linalg.pinv(T_w_c_im1), T_w_c_i)
@@ -52,9 +53,9 @@ def transform44(l):
     """
     _EPS = numpy.finfo(float).eps * 4.0
     # t = l[0,1:4]
-    t = [l[0,1], l[0,2], l[0,3]]
+    t = [l[0, 1], l[0, 2], l[0, 3]]
     # q = numpy.array(l[0,4:8], dtype=numpy.float64, copy=True)
-    q = [l[0,4], l[0,5], l[0,6], l[0,7]]
+    q = [l[0, 4], l[0, 5], l[0, 6], l[0, 7]]
     q = numpy.array(q, dtype=numpy.float64, copy=True)
     nq = numpy.dot(q, q)
     if nq < _EPS:
@@ -71,6 +72,7 @@ def transform44(l):
         (q[0, 1] + q[2, 3], 1.0 - q[0, 0] - q[2, 2], q[1, 2] - q[0, 3], t[1]),
         (q[0, 2] - q[1, 3], q[1, 2] + q[0, 3], 1.0 - q[0, 0] - q[1, 1], t[2]),
         (0.0, 0.0, 0.0, 1.0)), dtype=numpy.float64)
+
 
 if __name__ == '__main__':
     DESCRIPTION = """This script computes a dataset mean for particular modality."""
@@ -94,22 +96,30 @@ if __name__ == '__main__':
     # Get and associate data based on time
     first_list = associate.read_file_list(args.first_file)
     second_list = associate.read_file_list(args.second_file)
-    first_stamps = first_list.keys()
-    first_stamps.sort()
-    second_stamps = second_list.keys()
-    second_stamps.sort()
+    # first_stamps = first_list.keys()
+    # first_stamps.sort()
+    # first_list = sorted(first_list)
+    first_stamps = {}
+    for k in sorted(first_list):
+        first_stamps[k] = first_list[k]
+    # second_stamps = second_list.keys()
+    # second_stamps.sort()
+    # second_list = sorted(second_list)
+    second_stamps = {}
+    for k in sorted(second_list):
+        second_stamps[k] = second_list[k]
 
-    matches = associate.associate(first_list, second_list, float(args.offset), float(args.max_difference))
+    matches = associate.associate(first_stamps, second_stamps, float(args.offset), float(args.max_difference))
 
-    first_data = numpy.matrix([[float(value) for value in first_list[a][0:7]] for a, b in matches]).transpose()
+    first_data = numpy.matrix([[float(value) for value in first_stamps[a][0:7]] for a, b in matches]).transpose()
     second_data = numpy.matrix(
-        [[float(value) * float(args.scale) for value in second_list[b][0:7]] for a, b in matches]).transpose()
+        [[float(value) * float(args.scale) for value in second_stamps[b][0:7]] for a, b in matches]).transpose()
 
     rel_first_data = rotated_to_local(first_data.transpose())
     rel_second_data = rotated_to_local(second_data.transpose())
     print(rel_first_data)
     # # Compute Error
-    temp_trans_error = rel_first_data[:,0:2] - rel_second_data[:,0:2]
+    temp_trans_error = rel_first_data[:, 0:2] - rel_second_data[:, 0:2]
     trans_error = numpy.sqrt(numpy.sum(numpy.multiply(temp_trans_error, temp_trans_error), 1))
 
     temp_rot_error = rel_first_data[:, 3:5] - rel_second_data[:, 3:5]
@@ -127,13 +137,13 @@ if __name__ == '__main__':
     numpy.savetxt(save_path, rot_error, delimiter=',')
 
     if args.verbose:
-        print("compared_pose_pairs %d pairs"%(len(trans_error)))
-        print("translational_error.rmse %f m"%numpy.sqrt(numpy.dot(trans_error,trans_error) / len(trans_error)))
-        print("translational_error.mean %f m"%numpy.mean(trans_error))
-        print("translational_error.median %f m"%numpy.median(trans_error))
-        print("translational_error.std %f m"%numpy.std(trans_error))
-        print("translational_error.min %f m"%numpy.min(trans_error))
-        print("translational_error.max %f m"%numpy.max(trans_error))
+        print("compared_pose_pairs %d pairs" % (len(trans_error)))
+        print("translational_error.rmse %f m" % numpy.sqrt(numpy.dot(trans_error, trans_error) / len(trans_error)))
+        print("translational_error.mean %f m" % numpy.mean(trans_error))
+        print("translational_error.median %f m" % numpy.median(trans_error))
+        print("translational_error.std %f m" % numpy.std(trans_error))
+        print("translational_error.min %f m" % numpy.min(trans_error))
+        print("translational_error.max %f m" % numpy.max(trans_error))
 
         print("rotational_error.rmse %f deg" % (numpy.sqrt(numpy.dot(rot_error, rot_error) / len(rot_error))))
         print("rotational_error.mean %f deg" % (numpy.mean(rot_error)))
