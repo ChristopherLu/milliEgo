@@ -2,10 +2,10 @@
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg)
 
 # milliEgo
-### [Project](https://christopherlu.github.io/publications/milliego) | [Youtube](https://www.youtube.com/watch?v=I9vjoKGY2ts&feature=youtu.be) | [Paper](https://christopherlu.github.io/files/papers/[SenSys2020]milliEgo.pdf) <br>
+### [Youtube](https://www.youtube.com/watch?v=I9vjoKGY2ts&feature=youtu.be) | [Paper](https://arxiv.org/abs/2006.02266) <br>
 
 Simplified [docker](https://www.docker.com/) version for the implementation of our 6-DOF Egomotion Estimation method via a single-chip mmWave radar ([TI AWR1843](https://www.ti.com/product/AWR1843)) and a commercial-grade IMU. Our method is the first-of-its-kind DNN based odometry approach that can estimate the egomotion from the sparse and noisy data returned by a single-chip mmWave radar. <br><br>
-[milliEgo: Single-chip mmWave Aided Egomotion Estimation with Deep Sensor Fusion](https://christopherlu.github.io/publications/milliego)  
+[milliEgo: Single-chip mmWave Aided Egomotion Estimation with Deep Sensor Fusion](https://arxiv.org/abs/2006.02266)  
 Chris Xiaoxuan Lu, Muhamad Risqi U. Saputra, Peijun Zhao, Yasin Almalioglu, Pedro P. B. de Gusmao, Changhao Chen, Ke Sun, Niki Trigoni, Andrew Markham
 In [SenSys 2020](https://www.sigmobile.org/sensys/2020/).  
 
