@@ -1,7 +1,9 @@
 [![License CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC4.0-blue.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg)
 
-# milliEgo
+### !!!UPDATE on 23/04/2022:
+This repository maintains the original implemenation of milliEgo and require some dependency on Keras. A more updated version purly with the lastest Tensorflow 2 implemenation can be found in this new [repository](https://github.com/MAPS-Lab/milliEgo_tf2). Thank Xiangyu for the great code migration. 
+
 ### [Youtube](https://www.youtube.com/watch?v=I9vjoKGY2ts&feature=youtu.be) | [Paper](https://arxiv.org/abs/2006.02266) <br>
 
 Simplified [docker](https://www.docker.com/) version for the implementation of our 6-DOF Egomotion Estimation method via a single-chip mmWave radar ([TI AWR1843](https://www.ti.com/product/AWR1843)) and a commercial-grade IMU. Our method is the first-of-its-kind DNN based odometry approach that can estimate the egomotion from the sparse and noisy data returned by a single-chip mmWave radar. <br><br>
