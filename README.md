@@ -34,7 +34,7 @@ mkdir -p models/cross-mio
 - Download the trained milliEgo model '140' and the respective config file `nn_opt.json` from [here](https://www.dropbox.com/sh/g0rpk0ah6oldyp9/AACTjB6fIUfw02ol3Adj2wqga?dl=0) (dropbox link). Put both of them in `./models/cross-mio/`.
 
 ### Dataset
-- To train and test a model, please download our dataset from [here](https://www.dropbox.com/s/q6z81pe1mxr0iyo/milliVO_dataset.zip?dl=0) (dropbox link).
+- To train and test a model, please go to this [repository](https://github.com/MAPS-Lab/OdomBeyondVision) and find the link for downloading. 
 
 - After downloading and unzip, please put the dataset folder in `<host dataset dir path>` of your host machine.
 
